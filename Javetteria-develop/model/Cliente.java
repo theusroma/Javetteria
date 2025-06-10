@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public class Cliente extends Pessoa implements ContaUsuario{
 
@@ -12,6 +12,10 @@ public class Cliente extends Pessoa implements ContaUsuario{
 
     public Endereco getEndereco(){
         return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
 

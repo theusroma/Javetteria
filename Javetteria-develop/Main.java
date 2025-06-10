@@ -1,9 +1,10 @@
-import Controller.UsuarioController;
-import Model.Cliente;
-import Model.Funcionario;
-import Model.Gerente;
-import View.Menu;
-import View.MenuInterativo;
+import controller.UsuarioController;
+import model.Cliente;
+import model.Funcionario;
+import model.Gerente;
+import view.Acessar;
+import view.Acessar;
+import view.MenuInterativo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,9 +21,9 @@ public class Main {
         ArrayList<Gerente> gerentes = new ArrayList<>();
 
         UsuarioController usuarioController = new UsuarioController(clientes, funcionarios, gerentes);
-        Menu menu = new Menu(usuarioController);
+        Acessar acessar = new Acessar(usuarioController);
 
-        menu.exibirMenuPrincipal();
+        acessar.exibirMenuPrincipal();
 
     }
 }

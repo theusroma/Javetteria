@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 //arquivos
 import java.io.BufferedWriter;
@@ -7,10 +7,7 @@ import java.io.IOException;
 //---
 
 
-import Model.Cliente;
-import Model.Funcionario;
-import Model.Gerente;
-import Model.Pessoa;
+import model.*;
 
 import java.util.ArrayList;
 
@@ -24,6 +21,18 @@ public class UsuarioController {
         this.clientes = clientes;
         this.funcionarios = funcionarios;
         this.gerentes = gerentes;
+    }
+
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public ArrayList<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public ArrayList<Gerente> getGerentes() {
+        return gerentes;
     }
 
     // --------- CLIENTES ---------
@@ -55,11 +64,27 @@ public class UsuarioController {
         return false;
     }
 
-    public boolean atualizarCliente(String login, String novoNome, String novoCpf) {
+    public boolean atualizarCliente(String login, String novoNome, String novoCpf, String novaRua, String novoNumero, String novoBairro, String novaCidade) { // <--- NOVOS PARÂMETROS AQUI
         Cliente cliente = buscarClientePorLogin(login);
         if (cliente != null) {
             cliente.setNome(novoNome);
             cliente.setCpf(novoCpf);
+
+
+            if (cliente.getEndereco() == null) {
+                cliente.setEndereco(new Endereco());
+            }
+
+            // 2
+            cliente.getEndereco().setRua(novaRua);
+            cliente.getEndereco().setNumero(novoNumero);
+            cliente.getEndereco().setBairro(novoBairro);
+            cliente.getEndereco().setCidade(novaCidade);
+
+            // 3
+            //
+            salvarListaClientes();
+
             return true;
         }
         return false;
@@ -232,6 +257,15 @@ public class UsuarioController {
 
             for (Cliente c : clientes) {
                 String linha = c.getLogin() + ";" + c.getSenha() + ";" + c.getTipoPessoa();
+
+                if (c.getEndereco() != null) {
+                    linha += ";" + c.getEndereco().getRua() + ";" + c.getEndereco().getNumero() + ";" +
+                            c.getEndereco().getBairro() + ";" + c.getEndereco().getCidade();
+                } else {
+                    // Se não tiver endereço, salva campos vazios para manter o formato da linha
+                    linha += ";;;;";
+                }
+
                 bw.write(linha);
                 bw.newLine();
             }
