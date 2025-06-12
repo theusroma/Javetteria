@@ -1,2 +1,0 @@
-mat;123;Gerente;matheus;123123123;gerente;tarde
-bru;123;Gerente;bruna;1234234;tarde
